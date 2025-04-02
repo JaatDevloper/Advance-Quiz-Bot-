@@ -1,0 +1,21 @@
+# Telegram Bot Libraries
+python-telegram-bot==13.15
+
+# Web Framework
+flask==2.3.3
+flask-login==0.6.2
+flask-sqlalchemy==3.1.1
+gunicorn==21.2.0
+
+# Database
+sqlalchemy==2.0.21
+psycopg2-binary==2.9.7
+
+# PDF Processing
+PyPDF2==3.0.1
+
+# Utils
+python-dotenv==1.0.0
+apscheduler==3.10.4
+requests==2.31.0
+email-validator==2.0.0
