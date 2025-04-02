@@ -1,0 +1,43 @@
+name: advanced-quiz-bot
+service:
+  name: web
+  type: web
+  runtime: python
+  build:
+    command: pip install -r requirements-koyeb.txt
+  start:
+    command: gunicorn --bind 0.0.0.0:$PORT --timeout 120 main:app
+  resources:
+    cpu: 1000m
+    memory: 512Mi
+  scaling:
+    min: 1
+    max: 1
+  domains:
+    - domain: ${KOYEB_APP_NAME}.koyeb.app
+      primary: true
+  checks:
+    health:
+      http:
+        path: /health
+        port: $PORT
+        interval: 15s
+        timeout: 10s
+        initialDelay: 30s
+  ports:
+    - port: 80
+      protocol: http
+      target: $PORT
+  env:
+    - name: TELEGRAM_BOT_TOKEN
+      value: ${TELEGRAM_BOT_TOKEN}
+    - name: OWNER_ID
+      value: ${OWNER_ID}
+    - name: DATABASE_URL
+      value: ${DATABASE_URL}
+    - name: SESSION_SECRET
+      value: ${SESSION_SECRET}
+    - name: WEB_APP_URL
+      value: https://${KOYEB_APP_NAME}.koyeb.app
+    - name: PORT
+      value: $PORT
